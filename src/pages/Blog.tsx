@@ -34,6 +34,9 @@ const Blog = () => {
   const [data, setData] = useState<BlogData | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
 
+  const [name, setName] = useState("");
+  const [content, setContent] = useState("");
+
   const fetchBlogData = async () => {
     const data = blog_data.find((item) => item._id === id) || null;
     setData(data);
@@ -43,8 +46,13 @@ const Blog = () => {
     setComments(comments_data);
   };
 
+  const addComment = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   useEffect(() => {
     fetchBlogData();
+    fetchComments();
   }, []);
 
   return data ? (
@@ -100,6 +108,39 @@ const Blog = () => {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Add Comment Section */}
+        <div className="max-w-3xl mx-auto">
+          <h3 className="font-semibold mb-4">Add your Comment</h3>
+          <form
+            onSubmit={addComment}
+            className="flex flex-col items-start gap-4 max-w-lg"
+          >
+            <input
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              type="text"
+              placeholder="Name"
+              required
+              className="w-full p-2 border border-gray-300 rounded outline-none"
+            />
+
+            <textarea
+              onChange={(e) => setContent(e.target.value)}
+              value={content}
+              placeholder="Comment"
+              className="w-full p-2 border border-gray-300 rounded outline-none h-48"
+              required
+            ></textarea>
+
+            <button
+              type="submit"
+              className="bg-primary text-white rounded p-2 px-8 hover:scale-102 transition-all cursor-pointer"
+            >
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </div>
