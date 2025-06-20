@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
   };
@@ -27,6 +30,8 @@ const Login = () => {
             <div className="flex flex-col">
               <label> Email </label>
               <input
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 type="email"
                 required
                 placeholder="your email id"
@@ -36,6 +41,8 @@ const Login = () => {
             <div className="flex flex-col">
               <label> Password </label>
               <input
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
                 type="password"
                 required
                 placeholder="your password"
