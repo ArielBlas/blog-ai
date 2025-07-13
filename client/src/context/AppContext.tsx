@@ -5,12 +5,30 @@ import toast from "react-hot-toast";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
-const AppContext = createContext({});
+interface AppContextType {
+  token: string | null;
+  setToken: (token: string | null) => void;
+  blogs: unknown[];
+  setBlogs: (blogs: unknown[]) => void;
+  input: string;
+  setInput: (input: string) => void;
+  navigate: ReturnType<typeof useNavigate>;
+}
+
+const AppContext = createContext<AppContextType>({
+  token: null,
+  setToken: () => {},
+  blogs: [],
+  setBlogs: () => {},
+  input: "",
+  setInput: () => {},
+  navigate: () => {},
+});
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
 
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState<string | null>(null);
   const [blogs, setBlogs] = useState([]);
   const [input, setInput] = useState("");
 
