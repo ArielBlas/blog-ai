@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 interface AppContextType {
+  axios: typeof axios;
   token: string | null;
   setToken: (token: string | null) => void;
   blogs: unknown[];
@@ -16,6 +17,7 @@ interface AppContextType {
 }
 
 const AppContext = createContext<AppContextType>({
+  axios,
   token: null,
   setToken: () => {},
   blogs: [],
@@ -55,6 +57,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const value = {
+    axios,
     token,
     setToken,
     blogs,
