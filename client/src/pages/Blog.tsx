@@ -5,19 +5,7 @@ import Navbar from "../components/Navbar";
 import Moment from "moment";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
-
-interface BlogData {
-  _id: string;
-  title: string;
-  description: string;
-  category: string;
-  image: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  isPublished: boolean;
-  subTitle: string;
-}
+import type { BlogData } from "../types";
 
 interface Comment {
   _id: string;

@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import type { BlogData } from "../types";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -9,8 +10,8 @@ interface AppContextType {
   axios: typeof axios;
   token: string | null;
   setToken: (token: string | null) => void;
-  blogs: unknown[];
-  setBlogs: (blogs: unknown[]) => void;
+  blogs: BlogData[];
+  setBlogs: (blogs: BlogData[]) => void;
   input: string;
   setInput: (input: string) => void;
   navigate: ReturnType<typeof useNavigate>;
