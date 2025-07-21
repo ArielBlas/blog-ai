@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { blog_data } from "../../assets/assets";
 import BlogTableItem from "./BlogTableItem";
+import { useAppContext } from "../../context/AppContext";
+import toast from "react-hot-toast";
 
 interface Blog {
   _id: string;
@@ -17,13 +18,23 @@ interface Blog {
 
 const ListBlog = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const { axios } = useAppContext();
 
-  const fethBlogs = async () => {
-    setBlogs(blog_data);
+  const fetchBlogs = async () => {
+    try {
+      const { data } = await axios.get("/api/admin/blogs");
+      if (data.success) {
+        setBlogs(data.blogs);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
-    fethBlogs();
+    fetchBlogs();
   }, []);
 
   return (
@@ -60,7 +71,7 @@ const ListBlog = () => {
                 <BlogTableItem
                   key={blog._id}
                   blog={blog}
-                  fetchBlogs={fethBlogs}
+                  fetchBlogs={fetchBlogs}
                   index={index + 1}
                 />
               );
